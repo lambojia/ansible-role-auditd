@@ -1,0 +1,3 @@
+## SSH configuration
+-w /etc/ssh/sshd_config -k sshd
+-w /etc/ssh/sshd_config.d -k sshd

@@ -1,0 +1,3 @@
+## Detect Remote Shell Use
+-a always,exit -F arch=b64 -F exe=/bin/bash -F success=1 -S connect -k remote_shell
+-a always,exit -F arch=b64 -F exe=/usr/bin/bash -F success=1 -S connect -k remote_shell

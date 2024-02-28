@@ -1,0 +1,6 @@
+## User, group, password databases
+-w /etc/group -p wa -k etcgroup
+-w /etc/gshadow -k etcgroup
+-w /etc/passwd -p wa -k etcpasswd
+-w /etc/shadow -k etcpasswd
+-w /etc/security/opasswd -k opasswd

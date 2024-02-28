@@ -31,15 +31,29 @@
     state: directory
     mode: "0750"
 
-- name: Place custom.rules
-  ansible.builtin.template:
-    src: custom.rules.j2
-    dest: "{{ auditd_config_directory }}/rules.d/custom.rules"
-    mode: "0664"
+- block:
+
+  - name: Place custom.rules
+    ansible.builtin.template:
+      src: custom.rules.j2
+      dest: "{{ auditd_config_directory }}/rules.d/custom.rules"
+      mode: "0664"
+    when:
+      - auditd_manage_rules
+
+  - name: Place preset.rules
+    ansible.builtin.blockinfile:
+      block: "{{ lookup('ansible.builtin.file', item) }}"
+      path: "{{ auditd_config_directory }}/rules.d/custom.rules"
+      marker: "#{mark} {{item}}"
+      insertafter: EOF
+    loop: "{{auditd_presets}}"
+    when:
+      - auditd_preset_rules
+
   notify:
     - Run augenrules
-  when:
-    - auditd_manage_rules
+
 
 - name: Start and enable auditd
   ansible.builtin.service:

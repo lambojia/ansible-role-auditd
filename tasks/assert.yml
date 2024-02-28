@@ -134,6 +134,9 @@
   ansible.builtin.assert:
     that:
       - auditd_space_left is defined
+      - auditd_space_left is number
+      - auditd_space_left >= 0
+      - auditd_space_left <= 100
     quiet: yes
 
 - name: assert | Test auditd_space_left_action
@@ -326,19 +329,31 @@
     - item.filters is defined
     - item.filters is string
 
-- name: assert | Test auditd_disp_qos
+
+- name: assert | Test auditd_preset_rules
   ansible.builtin.assert:
     that:
-      - auditd_disp_qos is defined
-      - auditd_disp_qos is string
-      - auditd_disp_qos in [ "lossy", "lossless" ]
-    fail_msg: "auditd_disp_qos must be one of 'lossy', 'lossless'."
+      - auditd_preset_rules is defined
+      - auditd_preset_rules is boolean
     quiet: yes
 
-- name: assert | Test auditd_dispatcher
+- name: assert | Test auditd_presets
   ansible.builtin.assert:
     that:
-      - auditd_dispatcher is defined
-      - auditd_dispatcher is string
-      - auditd_dispatcher is not none
+      - auditd_presets is iterable
     quiet: yes
+  when:
+    - auditd_presets is defined
+
+- name: assert | Test item in auditd_presets
+  ansible.builtin.assert:
+    that:
+      - item is defined
+      - item is string
+      - item is not none
+    quiet: yes
+  loop: "{{ auditd_presets }}"
+  loop_control:
+    label: "{{ item | default('none') }}"
+  when:
+    - auditd_presets is defined

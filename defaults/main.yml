@@ -16,11 +16,10 @@ auditd_freq: 50
 auditd_max_log_file: 8
 auditd_num_logs: 5
 auditd_priority_boost: 4
-auditd_disp_qos: lossy
-auditd_dispatcher: /sbin/audispd
+#auditd_disp_qos: lossy
+#auditd_dispatcher: /sbin/audispd
 auditd_name_format: none
 auditd_max_log_file_action: rotate
-# This can be a number ('25') or a percentage. ('25%')
 auditd_space_left: 75
 auditd_space_left_action: syslog
 auditd_verify_email: "yes"
@@ -40,3 +39,45 @@ auditd_distribute_network: "no"
 auditd_manage_rules: yes
 
 auditd_default_arch: b64
+
+
+auditd_preset_rules: yes
+
+auditd_presets:
+- Data_Compressed.rules
+- T1078_Valid_Accounts.rules
+- actions.rules
+- anon_file_create.rules
+- auditconfig.rules
+- audittools.rules
+- cron.rules
+- detect_execve_www.rules
+- etcgroup.rules
+- etcissue.rules
+- group_modification.rules
+- init.rules
+- injection.rules
+- libpath.rules
+- login.rules
+- modprobe.rules
+- modules.rules
+- network_modifications.rules
+#- network_socket_created.rules
+- pam.rules
+- passwd_modification.rules
+- perm_mod.rules
+- power.rules
+- power_abuse.rules
+- recon.rules
+- remote_shell.rules
+- sbin_susp.rules
+- session.rules
+- shell_profiles.rules
+- software_mgmt.rules
+- sshd.rules
+- susp_activity.rules
+- susp_shell.rules
+- sysctl.rules
+- systemd.rules
+- systemd_generator.rules
+- unauthedfileaccess.rules

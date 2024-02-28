@@ -10,6 +10,10 @@
 -r {{ auditd_maximum_rate }}
 # Set enable flag (0=disable, 1=enable, 2=locked, requires reboot to unlock)
 -e {{ auditd_enable_flag }}
+# Ignore errors
+## e.g. caused by users or files not found in the local environment
+-i
+
 
 {% if auditd_rules is defined %}
 {% for rule in auditd_rules %}

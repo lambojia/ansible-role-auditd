@@ -1,0 +1,6 @@
+## Network Configurations
+-a always,exit -F arch=b64 -S sethostname -S setdomainname -k network_modifications
+-w /etc/hosts -p wa -k network_modifications
+-w /etc/sysconfig/network -p wa -k network_modifications
+-w /etc/sysconfig/network-scripts -p w -k network_modifications
+-a always,exit -F dir=/etc/NetworkManager/ -F perm=wa -k network_modifications
